@@ -1,48 +1,77 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Clients.vue'
-import Clients from '../views/Clients.vue'
-import Products from '../views/Products.vue'
-import Orders from '../views/Orders.vue'
-import BankAccount from '../views/BankAccount.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Clients.vue";
+import Clients from "../views/Clients.vue";
+import Products from "../views/Products.vue";
+import Orders from "../views/Orders.vue";
+import BankAccount from "../views/BankAccount.vue";
+import Index from "../components/ClientsIndex/Index.vue";
+import SonOfIndex from "../components/ClientsIndex/SonOfIndex.vue";
+import SonOfIndex2 from "../components/ClientsIndex/SonOfIndex2.vue";
+import ClientDetail from "../components/ClientDetail.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    alias: '/app',
+    component: Home,
   },
   {
-    path: '/clients',
-    name: 'Clients',
-    component: Clients
+    path: "/clients",
+    name: "Clients",
+    component: Clients,
+    children: [
+      {
+        path: "index",
+        component: Index,
+        children: [
+          {
+            path: "sonofindex",
+            alias: '/soi',
+            components: {
+              default: SonOfIndex,
+              SonOfIndex2: SonOfIndex2,
+            },
+          },
+        ],
+      },
+      { path: "detail/:id", component: ClientDetail, name: "clientDetail" },
+    ],
   },
   {
-    path: '/orders',
-    name: 'Orders',
-    component: Orders
+    path: "/orders",
+    name: "Orders",
+    component: Orders,
   },
   {
-    path: '/bank-account',
-    name: 'BankAccount',
-    component: BankAccount
+    path: "/bank-account",
+    name: "BankAccount",
+    component: BankAccount,
   },
   {
-    path: '/products',
-    name: 'Products',
+    path: "/products",
+    name: "Products",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: Products
-  }
-]
+    component: Products,
+  },
+  { path: '/redirecionamento', redirect: '/'}, //redirecionando rotas
+  { path: '/redirecionamento2', redirect: { name: 'Home' } }, //redirecionando rotas
+  { path: '/redirecionamento3', redirect: to => {
+    console.log(to)
+
+    return { name: 'Home' }
+  } } //redirecionando rotas
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

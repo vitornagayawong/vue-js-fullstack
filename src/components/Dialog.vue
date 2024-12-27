@@ -49,7 +49,7 @@ export default {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newClient)
                 })
-                    .then(response => response.JSON())
+                    .then(response => response.json())
                     .then(data => {
                         alert(`Client registered sucessfully:` +  data)
                         this.name = '',

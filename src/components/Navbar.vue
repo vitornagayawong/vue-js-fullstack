@@ -3,6 +3,24 @@
     <v-toolbar>
             
       <v-spacer></v-spacer>
+      <router-link :to="{ name: 'Clients' }" class="mr-10">
+        Clients
+      </router-link>
+      <router-link :to="{ path: '/clients/index' }" class="mr-10">
+        Clients Index
+      </router-link>
+      <router-link :to="{ path: '/clients/index/sonofindex' }" class="mr-10">
+        Clients Index Son
+      </router-link>
+      <router-link :to="{ path: '/orders' }" class="mr-10">
+        Orders
+      </router-link>
+      <router-link :to="{ name: 'BankAccount' }" class="mr-10">
+        BankAccount
+      </router-link>
+      <router-link :to="{ path: '/products' }" class="mr-10">
+        Products
+      </router-link>
       <v-btn text color="grey">
         <span>Sign Out</span>
         <v-icon right>mdi-logout</v-icon>
@@ -65,5 +83,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.router-link-active {
+  color: white;
+  background-color: rgb(105, 168, 189);
+  border-color: green;
+  } 
+.router-link-exact-active {
+  color: white;
+  background-color: blue;
+  border-color: green;
+  padding: 5px;
+}
 </style>

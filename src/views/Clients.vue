@@ -122,10 +122,26 @@
     <v-btn @click="navegarParaOrdersForward">Ir para Orders usando $router.forward()</v-btn>
     <v-btn @click="navegarParaOrdersBack">Ir para Orders usando $router.back()</v-btn>
     <v-btn @click="navegarParaOrdersGo">Ir para Orders usando $router.go()</v-btn>
-
+    <br>
+    <br>
     <hr>
 
     <router-view></router-view>
+
+    <hr>
+    <br>
+    <br>
+
+    <h2>Usando Router Link diretamente botando parâmetros na pesquisa</h2>
+      <router-link :to="{ name: 'Clients', query: { atributos_clientes: this.clientId } }">
+        Puxando clientes pelo Id somente
+      </router-link>
+      <br>
+      <router-link to="/clients?atributos_cliente=id">
+        Puxando clientes pelo Id somente
+        <br><br>
+       {{ clientsList }}
+      </router-link>    
   </div>
 </template>
 
@@ -248,9 +264,6 @@ export default {
           altura: this.client.height,
         };
 
-        // console.log(newClient)
-        // console.log(this.client.name)
-
         fetch(`http://127.0.0.1:8000/api/clientes/${this.clientId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json " },
@@ -278,6 +291,17 @@ export default {
     clientFound(novo, velho) {
       console.log('testando o watch :',novo, velho)
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    const queryParams = new URLSearchParams(to.query).toString()
+    console.log(queryParams)
+    fetch(`http://127.0.0.1:8000/api/clientes?${queryParams}`)
+          .then((response) => response.json())
+          .then(            
+            data => this.clientsList = data  //deu certo
+          )
+          .catch((error) => console.log(error));
+    next()
   }
 };
 </script>

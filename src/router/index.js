@@ -9,6 +9,8 @@ import Index from "../components/ClientsIndex/Index.vue";
 import SonOfIndex from "../components/ClientsIndex/SonOfIndex.vue";
 import SonOfIndex2 from "../components/ClientsIndex/SonOfIndex2.vue";
 import ClientDetail from "../components/ClientDetail.vue";
+import PaginaNaoEncontrada from "../views/PaginaNaoEncontrada.vue";
+import ClientDetailUsingFiltersAndParams from "../components/ClientsIndex/ClientDetailUsingFiltersAndParams.vue";
 
 Vue.use(VueRouter);
 
@@ -39,6 +41,7 @@ const routes = [
         ],
       },
       { path: "detail/:id", component: ClientDetail, name: "clientDetail" },
+      { path: "filters", component: ClientDetailUsingFiltersAndParams, name: "clientDetailUsingFiltersAndParams" },
     ],
   },
   {
@@ -65,7 +68,10 @@ const routes = [
     console.log(to)
 
     return { name: 'Home' }
-  } } //redirecionando rotas
+    }
+  }, //redirecionando rotas
+  //{ path: '*', redirect: '/' } //sintaxe vue 2
+  { path: '*', component: PaginaNaoEncontrada } //sintaxe vue 2
 ];
 
 const router = new VueRouter({

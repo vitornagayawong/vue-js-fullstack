@@ -21,6 +21,9 @@
       <router-link :to="{ path: '/products' }" class="mr-10">
         Products
       </router-link>
+      <router-link :to="{ path: '/clients/filters' }" class="mr-10">
+        Client with Filters
+      </router-link>
       <v-btn text color="grey">
         <span>Sign Out</span>
         <v-icon right>mdi-logout</v-icon>
@@ -74,6 +77,7 @@ export default {
       { title: "Conta Bancária", icon: "mdi-bank", route: '/bank-account' },
       { title: "Pedidos", icon: "mdi-truck", route: '/orders' },
       { title: "Produtos", icon: "mdi-shopping", route: '/products' },
+      { title: "Clients Filters", icon: "mdi-account-details", route: '/clientsFilters' },
     ],
     right: null,
   }),

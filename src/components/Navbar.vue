@@ -6,7 +6,7 @@
       <router-link :to="{ name: 'Clients' }" class="mr-10">
         Clients
       </router-link>
-      <router-link :to="{ path: '/clients/index' }" class="mr-10">
+      <router-link :to="{ path: '/clients/index', hash: '#primeiro_slot' }" class="mr-10">
         Clients Index
       </router-link>
       <router-link :to="{ path: '/clients/index/sonofindex' }" class="mr-10">

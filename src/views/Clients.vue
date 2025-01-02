@@ -1,6 +1,20 @@
 <template>
   <div>
-    <p v-if="cumprimentar"> oiiiiiii</p>
+    <h1>{{ $store.state.titulo }}</h1>
+    <h2 :class="propComputadaLocal">{{ tituloCustomizado }} junto com prop computada local</h2>
+    <br>
+    <ul>
+      <li>Nome do cliente Vuex: {{ nomeClienteVuex }}</li>
+      <li>Altura do cliente Vuex: {{ alturaClienteVuex }}</li>
+      <li>idade do cliente Vuex: {{ idadeClienteVuex }}</li>
+    </ul>
+    <br><br>
+    <h2>Total de clientes fictícios do vuex: {{ $store.getters.totalClientesFicitios }}</h2>
+    <br>
+    <br>
+    <h2>Total de clientes fictícios do vuex com mais de 1 (getters aninhadas): {{ $store.getters.totalClientesFicitiosMaisUm }}</h2>
+    <br>
+    <p v-if="cumprimentar"> oiiiiiiiiiiiiiiiiiiiiiiiiiii</p>
     <p v-else>tchauu</p>
 
     <h1 class="headline">Clients</h1>
@@ -54,7 +68,7 @@
     </v-card>
 
     <div>
-      <h2 class="mt-4">Enter with the client Id</h2>
+      <h2 class="mt-4" id="client_id_input">Enter with the client Id</h2>
       <v-form>
         <v-text-field
           v-model="clientId"
@@ -114,7 +128,7 @@
 
       <template v-slot:slotPaiProFilho2><p>Passando html pro componente filho pela segunda vez hahaha</p></template>
 
-      <h3>Primeiro SLOT PADRÃO dentro de um h3</h3>
+      <h3 id="primeiro_slot">Primeiro SLOT PADRÃO dentro de um h3</h3>
     </delete-client>
     <br><br>
     <v-btn @click="navegarParaOrdersPush">Ir para Orders usando $router.push()</v-btn>
@@ -146,6 +160,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex/dist/vuex.common.js";
 import DeleteClient from "../components/DeleteClient.vue";
 import Dialog from "../components/Dialog.vue";
 import MixinClients from '@/mixin';
@@ -283,6 +298,23 @@ export default {
     recebendoPropDoFilho(propDoFilho) {
       console.log(propDoFilho);
     },
+    passandoParametroProGetterDoVuex() {
+      return this.$store.getters.totalClientesFicitios
+    }
+  },
+  computed: {
+    ...mapState({ //precisa usar o ... (spread operator para que o computed possa ter outros métodos nada a ver com o vuex)
+      nomeClienteVuex: state => state.cliente.nome,
+      idadeClienteVuex: state => state.cliente.idade,
+      alturaClienteVuex: state => state.cliente.altura,
+      //método computado normal, sem ser vuex
+      tituloCustomizado() { 
+        return `<-- ${this.$store.state.titulo} Customizado -->`
+      }
+    }),
+    propComputadaLocal() {
+      return 'red'
+    }
   },
   created() {
     this.searchClients();
